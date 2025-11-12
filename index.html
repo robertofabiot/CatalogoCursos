@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Catálogo de Cursos</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f9f9f9;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+        }
+        #searchBox {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            width: 60%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        #results {
+            margin-top: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .course {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .course h3 {
+            margin: 0;
+            color: #333;
+        }
+        .course p {
+            margin: 0.3rem 0;
+            color: #555;
+        }
+        .empty {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Cursos</h1>
+    <input type="text" id="searchBox" placeholder="Buscar cursos..." />
+
+    <div id="results"></div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:5000/courses"; // URL base de Flask
+
+        const searchBox = document.getElementById("searchBox");
+        const resultsDiv = document.getElementById("results");
+
+        async function fetchCourses(query = "") {
+            const url = query ? `${API_URL}?q=${encodeURIComponent(query)}` : API_URL;
+            resultsDiv.innerHTML = "<p class='empty'>Cargando...</p>";
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (!res.ok) {
+                    resultsDiv.innerHTML = `<p class="empty">${data.message || "Error desconocido"}</p>`;
+                    return;
+                }
+
+                if (Array.isArray(data) && data.length > 0) {
+                    resultsDiv.innerHTML = data.map(c => `
+                        <div class="course">
+                            <h3>${c.name}</h3>
+                            <p><strong>Área:</strong> ${c.area}</p>
+                            <p><strong>Duración:</strong> ${c.duration_hours} horas</p>
+                            <p><strong>Nivel:</strong> ${c.level}</p>
+                        </div>
+                    `).join("");
+                } else {
+                    resultsDiv.innerHTML = `<p class="empty">No se encontraron cursos</p>`;
+                }
+            } catch (err) {
+                resultsDiv.innerHTML = `<p class="empty">Error al conectar con el servidor</p>`;
+                console.error(err);
+            }
+        }
+
+        // Buscar mientras se escribe
+        searchBox.addEventListener("input", e => {
+            fetchCourses(e.target.value.trim());
+        });
+
+        // Mostrar todos al inicio
+        fetchCourses();
+    </script>
+</body>
+</html>
