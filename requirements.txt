@@ -1,0 +1,25 @@
+# Dependencias básicas recomendadas para el proyecto CatalogoCursos
+# Generado con ayuda de Copilot
+# Versión de Python recomendada: >=3.11
+# Añade o ajusta versiones según las necesidades del proyecto.
+
+# Core
+Flask==2.3.3
+python-dotenv==1.0.0
+
+# Base de datos y migraciones (ajusta/retira si no usas Postgres/SQLAlchemy)
+Flask-SQLAlchemy==3.0.3
+Flask-Migrate==4.0.4
+psycopg2-binary==2.9.7
+
+# Cliente HTTP / utilidades
+requests==2.31.0
+
+# Servidor de producción WSGI
+gunicorn==20.1.0
+
+# Pruebas
+pytest==7.4.0
+
+# Nota: Si prefieres usar SQLite en lugar de Postgres, no es necesario instalar
+# psycopg2-binary; SQLAlchemy lo manejará internamente con SQLite.
