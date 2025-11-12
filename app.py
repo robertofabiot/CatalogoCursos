@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 COURSES = [
-    {"id": 1, "name": "Algoritmos I", "area": "CS"},
+    {"id": 1, "name": "Algoritmos I", "area": "CS "},
     {"id": 2, "name": "Introducción a la Programación", "area": "CS"},
     {"id": 3, "name": "Matemática Discreta", "area": "Math"},
 ]
