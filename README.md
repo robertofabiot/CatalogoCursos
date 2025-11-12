@@ -144,6 +144,92 @@ Instalación:
 
 ```bash
 pip install -r requirements.txt
+
+-----
+
+## 🚀 Instalación (con ayuda de Copilot)
+
+1. Verifica versión de Python (recomendado 3.11+):
+  ```bash
+  python --version
+  ```
+2. Crea y activa un entorno virtual:
+  ```bash
+  python -m venv .venv
+  source .venv/bin/activate
+  ```
+3. Instala dependencias:
+  ```bash
+  pip install -r requirements.txt
+  ```
+4. (Opcional) Actualiza dependencias a las últimas versiones seguras:
+  ```bash
+  pip install --upgrade -r requirements.txt
+  ```
+
+## ▶️ Ejecución del servidor
+
+Puedes ejecutarlo de dos formas:
+
+Forma directa (modo desarrollo):
+```bash
+python app.py
+```
+
+Usando el comando `flask` (si prefieres):
+```bash
+export FLASK_APP=app.py
+flask run --reload
+```
+
+El servidor quedará disponible en:
+```
+http://127.0.0.1:5000/courses
+```
+
+## 🧪 Pruebas rápidas de la API
+
+Prueba listado completo:
+```bash
+curl -s http://127.0.0.1:5000/courses | jq
+```
+
+Prueba filtrado por nombre:
+```bash
+curl -s "http://127.0.0.1:5000/courses?q=algo" | jq
+```
+
+Verifica respuesta cuando no hay coincidencias (ejemplo):
+```bash
+curl -s "http://127.0.0.1:5000/courses?q=zzzzz" | jq
+```
+
+Si más adelante se añaden tests con `pytest`, se ejecutarían así:
+```bash
+pytest -q
+```
+
+> Nota: `jq` es opcional y sirve para formatear JSON (instálalo con `sudo apt install jq`).
+
+## 🛠 Próximos pasos sugeridos
+
+- Añadir pruebas unitarias con `pytest` para el filtrado.
+- Incorporar filtros por `level` y rango de `duration_hours`.
+- Desplegar en un servicio (Railway, Render, Fly.io o similar) usando `gunicorn`.
+
+-----
+
+## 🤝 Créditos del equipo
+
+Proyecto realizado por:
+- Erving
+- Daniela
+- Roberto
+- Josué
+
+Documentación y mejoras técnicas elaboradas con ayuda de Copilot (asistente de IA para desarrollo colaborativo).
+
+-----
 ```
 
 ### 💡 Notas finales
